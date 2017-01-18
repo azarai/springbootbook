@@ -1,0 +1,117 @@
+{
+	"id": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+	"name": "SpringBootBook",
+	"description": "",
+	"order": [
+		"f604d24d-b988-1533-930b-5b7b2e55cb2d",
+		"d94cd493-e779-85df-e802-b51e44d225dd",
+		"e6c2aa8b-5026-6f58-1c55-4bc8fa8b5621",
+		"894e3b0d-a8a3-a2cb-e7e8-68404868ad5e"
+	],
+	"folders": [],
+	"timestamp": 1484082186701,
+	"owner": 0,
+	"public": false,
+	"hasRequests": true,
+	"requests": [
+		{
+			"id": "894e3b0d-a8a3-a2cb-e7e8-68404868ad5e",
+			"headers": "Authorization: Basic YWRtaW46bXlwYXNzd29yZA==\n",
+			"url": "http://localhost:8080/fb283fa3-0fa6-4a0e-a03e-b24ebe3849df",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1484082524118,
+			"name": "Delete Comment",
+			"description": "",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"responses": []
+		},
+		{
+			"id": "d94cd493-e779-85df-e802-b51e44d225dd",
+			"headers": "",
+			"url": "http://localhost:8080/list/product4711",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1484082412456,
+			"name": "Get Comments for Page",
+			"description": "",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"responses": []
+		},
+		{
+			"id": "e6c2aa8b-5026-6f58-1c55-4bc8fa8b5621",
+			"headers": "Authorization: Basic YWRtaW46bXlwYXNzd29yZA==\n",
+			"url": "http://localhost:8080/listspam/product4711",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"data": null,
+			"dataMode": "params",
+			"name": "Get Spam Comments for Page",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1484082463881,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "f604d24d-b988-1533-930b-5b7b2e55cb2d",
+			"headers": "",
+			"url": "http://localhost:8080/create",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "POST",
+			"data": [
+				{
+					"key": "pageId",
+					"value": "product4711",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "username",
+					"value": "Stiefel",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "emailAddress",
+					"value": "example@example.com",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "comment",
+					"value": "I am a mighty comment.",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1484082335075,
+			"name": "Create Comment",
+			"description": "",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"responses": []
+		}
+	]
+}

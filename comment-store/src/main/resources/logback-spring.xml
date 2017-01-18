@@ -1,0 +1,66 @@
+<configuration scanPeriod="1 minute" scan="true">
+
+	<property name="logger.path" value="target/" />
+
+	<appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+		<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{SBBRequestUUID} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logger.path}sbb-commentstore.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>${logger.path}sbb-commentstore.%d{yyyy-MM-dd}_%i.log.zip</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 250MB -->
+				<maxFileSize>250MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{SBBRequestUUID} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ERR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<file>${logger.path}sbb-commentstore.err</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>sbb-commentstore.%d{yyyy-MM-dd}_%i.err.zip</fileNamePattern>
+
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 250MB -->
+				<maxFileSize>250MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} %X{SBBRequestUUID} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework.web" level="DEBUG"/>
+	<root level="INFO">
+		<if condition='isDefined("hideConsoleLog")'>
+			<else>
+				<appender-ref ref="STDOUT" />
+			</else>
+		</if>
+
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ERR_FILE" />
+	</root>
+
+
+</configuration>
