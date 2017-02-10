@@ -20,8 +20,18 @@ import org.hibernate.annotations.TypeDefs;
 import de.codeboje.springbootbook.model.utils.UtcCalendarType;
 
 @Entity
-@Table(name = "comments_model", indexes = { @Index(name = "idx_pageId", columnList = "pageId") })
-@TypeDefs({ @TypeDef(name = "calendarUTC", typeClass = UtcCalendarType.class, defaultForType = Calendar.class) })
+@Table(name = "comments_model", 
+	   indexes = {
+			   @Index(name = "idx_pageId", 
+					  columnList = "pageId"
+					 ) 
+		}
+)
+@TypeDefs({ 
+	@TypeDef(name = "calendarUTC", 
+			typeClass = UtcCalendarType.class, 
+			defaultForType = Calendar.class) 
+	})
 public class CommentModel implements Serializable {
 
 	private static final long serialVersionUID = 8926987149780391093L;
@@ -36,7 +46,7 @@ public class CommentModel implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Type(type = "calendarUTC")
 	private Calendar lastModificationDate;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Type(type = "calendarUTC")
 	private Calendar creationDate;
@@ -46,10 +56,10 @@ public class CommentModel implements Serializable {
 
 	@Column(length = 32)
 	private String username;
-	
+
 	@Column(length = 32)
 	private String emailAddress;
-	
+
 	@Column
 	private boolean spam;
 

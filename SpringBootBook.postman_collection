@@ -6,13 +6,14 @@
 		"f604d24d-b988-1533-930b-5b7b2e55cb2d",
 		"d94cd493-e779-85df-e802-b51e44d225dd",
 		"e6c2aa8b-5026-6f58-1c55-4bc8fa8b5621",
-		"894e3b0d-a8a3-a2cb-e7e8-68404868ad5e"
+		"894e3b0d-a8a3-a2cb-e7e8-68404868ad5e",
+		"8b9761be-0e2c-4bf3-5ba8-1235f6becb03",
+		"efbd93f6-f616-1e27-440c-0feda083b725"
 	],
 	"folders": [],
 	"timestamp": 1484082186701,
 	"owner": 0,
 	"public": false,
-	"hasRequests": true,
 	"requests": [
 		{
 			"id": "894e3b0d-a8a3-a2cb-e7e8-68404868ad5e",
@@ -28,6 +29,24 @@
 			"helperAttributes": {},
 			"time": 1484082524118,
 			"name": "Delete Comment",
+			"description": "",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"responses": []
+		},
+		{
+			"id": "8b9761be-0e2c-4bf3-5ba8-1235f6becb03",
+			"headers": "Authorization: Basic YWRtaW46bXlwYXNzd29yZA==\n",
+			"url": "http://localhost:8080/loggers",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1486715916463,
+			"name": "Show Loggers",
 			"description": "",
 			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
 			"responses": []
@@ -69,6 +88,27 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {}
+		},
+		{
+			"id": "efbd93f6-f616-1e27-440c-0feda083b725",
+			"headers": "Authorization: Basic YWRtaW46bXlwYXNzd29yZA==\nContent-Type: application/json\n",
+			"url": "http://localhost:8080/loggers/ROOT",
+			"pathVariables": {},
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "68931e8b-36a7-c8a3-7f8a-09e524df7390",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Change Loglevel",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1486716136202,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n    \"configuredLevel\": \"DEBUG\"\n}"
 		},
 		{
 			"id": "f604d24d-b988-1533-930b-5b7b2e55cb2d",
