@@ -2,61 +2,61 @@ package de.codeboje.springbootbook.commentstore.restapi;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.actuate.metrics.CounterService;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import de.codeboje.springbootbook.commentstore.service.CommentModelRepository;
 import de.codeboje.springbootbook.commentstore.service.CommentService;
 import de.codeboje.springbootbook.model.CommentModel;
+import de.codeboje.springbootbook.spamdetection.SpamDetector;
 
+
+/**
+ * Test for the {@link ReadController} using a mock test approach.
+ *
+ */
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-@WebAppConfiguration
-@ActiveProfiles({ "test", "FS" })
+@WebMvcTest(ReadController.class)
+@AutoConfigureMockMvc
+@MockBean({SpamDetector.class, CounterService.class})
 public class ReadControllerTest {
 
-	@Autowired
-	private WebApplicationContext context;
+	@MockBean
+	private CommentService commentService;
 
 	@Autowired
-	private CommentModelRepository repository;
-
-	@Autowired
-	private CommentService service;
-
 	private MockMvc mvc;
-
-	private CommentModel model;
 
 	private DateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'");
 
-	@Before
-	public void setUp() throws Exception {
-		repository.deleteAll();
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-		CommentModel dummyModel = setupDummyModel();
-		service.put(dummyModel);
-		model = service.get(dummyModel.getId());
-	}
-
 	@Test
 	public void testGetComments() throws Exception {
+		CommentModel model = setupDummyModel();
+		List<CommentModel> mockReturn = new ArrayList<CommentModel>();
+		mockReturn.add(model);
+		
+		when(this.commentService.list( anyString())).thenReturn(mockReturn);
+		
 		this.mvc.perform(get("/list/" + model.getPageId()))
 				.andExpect(status().is(200))
 				.andExpect(jsonPath("$[0].id", is(model.getId())))
@@ -68,10 +68,18 @@ public class ReadControllerTest {
 				.andExpect(
 						jsonPath("$[0].email_address",
 								is(model.getEmailAddress())));
+		
+		verify(this.commentService, times(1)).list( anyString());
 	}
 
 	@Test
 	public void testGetSpamComments() throws Exception {
+		CommentModel model = setupDummyModel();
+		List<CommentModel> mockReturn = new ArrayList<CommentModel>();
+		mockReturn.add(model);
+		
+		when(this.commentService.list( anyString())).thenReturn(mockReturn);
+		
 		this.mvc.perform(get("/listspam/" + model.getPageId()))
 				.andExpect(status().is(200))
 				.andExpect(jsonPath("$", hasSize(0)));
@@ -84,12 +92,14 @@ public class ReadControllerTest {
 	}
 
 	private CommentModel setupDummyModel() {
-		model = new CommentModel();
+		CommentModel model = new CommentModel();
+		model.setId("aid");
 		model.setUsername("testuser");
 		model.setId("dqe345e456rf34rw");
 		model.setPageId("product0815");
 		model.setEmailAddress("example@example.com");
 		model.setComment("I am the comment");
+		model.setCreationDate(Calendar.getInstance());
 		return model;
 	}
 }

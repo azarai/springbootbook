@@ -3,8 +3,6 @@ package de.codeboje.springbootbook.commentstore.service;
 import java.io.IOException;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import de.codeboje.springbootbook.model.CommentModel;
 
 public interface CommentService {

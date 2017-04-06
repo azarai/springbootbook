@@ -7,40 +7,35 @@ import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import de.codeboje.springbootbook.commentstore.service.CommentService;
 import de.codeboje.springbootbook.model.CommentModel;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-@WebAppConfiguration
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
+@AutoConfigureMockMvc
+@WithMockUser(username="admin")
+@ActiveProfiles({ "test", "FS" })
 public class WriteControllerTest {
-
-    @Autowired
-    private WebApplicationContext context;
 
     @Autowired
     private CommentService service;
     
+    @Autowired
     private MockMvc mvc;
-
-    @Before
-    public void setUp() {
-        this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-    }
     
     @Test
     public void testPost() throws Exception {
