@@ -4,4 +4,4 @@ Learn to build your first Spring Boot application with an actionable and hands-o
 
 This is the sample application for the book [Spring Boot: How To Get Started and Build a Microservice](http://codeboje.de/spring-boot-book/ "Spring Boot book").
 
-The book is available on [Amazon](https://www.amazon.com/Spring-Boot-Started-Build-Microservice-ebook/dp/B01MTAEJLR "spring boot microservice book") and also in mobi, ePub and PDF with free lifetime updates directly on [my site](http://codeboje.de/spring-boot-book/ "the Spring Boot book home").
+The book is available on [Amazon](http://amzn.to/2r9UfVa "spring boot microservice book") and also in mobi, ePub and PDF with free lifetime updates directly on [my site](http://codeboje.de/spring-boot-book/ "the Spring Boot book home").
