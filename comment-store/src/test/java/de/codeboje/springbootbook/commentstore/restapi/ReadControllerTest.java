@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,7 +49,7 @@ public class ReadControllerTest {
 	@Autowired
 	private MockMvc mvc;
 
-	private DateFormat SDF = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'");
+	private DateTimeFormatter DTF = DateTimeFormatter.ISO_INSTANT;
 
 	@Test
 	public void testGetComments() throws Exception {
@@ -61,8 +63,8 @@ public class ReadControllerTest {
 				.andExpect(status().is(200))
 				.andExpect(jsonPath("$[0].id", is(model.getId())))
 				.andExpect(
-						jsonPath("$[0].created", is(SDF.format(model
-								.getCreationDate().getTime()))))
+						jsonPath("$[0].created", is(DTF.format(model
+								.getCreationDate()))))
 				.andExpect(jsonPath("$[0].username", is(model.getUsername())))
 				.andExpect(jsonPath("$[0].comment", is(model.getComment())))
 				.andExpect(
@@ -99,7 +101,7 @@ public class ReadControllerTest {
 		model.setPageId("product0815");
 		model.setEmailAddress("example@example.com");
 		model.setComment("I am the comment");
-		model.setCreationDate(Calendar.getInstance());
+		model.setCreationDate(Instant.now());
 		return model;
 	}
 }

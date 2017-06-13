@@ -1,6 +1,7 @@
 package de.codeboje.springbootbook.model;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -14,10 +15,6 @@ import javax.persistence.Version;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
-
-import de.codeboje.springbootbook.model.utils.UtcCalendarType;
 
 @Entity
 @Table(name = "comments_model", 
@@ -27,11 +24,6 @@ import de.codeboje.springbootbook.model.utils.UtcCalendarType;
 					 ) 
 		}
 )
-@TypeDefs({ 
-	@TypeDef(name = "calendarUTC", 
-			typeClass = UtcCalendarType.class, 
-			defaultForType = Calendar.class) 
-	})
 public class CommentModel implements Serializable {
 
 	private static final long serialVersionUID = 8926987149780391093L;
@@ -43,13 +35,9 @@ public class CommentModel implements Serializable {
 	@Version
 	private Integer version;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Type(type = "calendarUTC")
-	private Calendar lastModificationDate;
+	private Instant lastModificationDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Type(type = "calendarUTC")
-	private Calendar creationDate;
+	private Instant creationDate;
 
 	@Column(length = 32)
 	private String pageId;
@@ -106,7 +94,7 @@ public class CommentModel implements Serializable {
 		return comment;
 	}
 
-	public Calendar getCreationDate() {
+	public Instant getCreationDate() {
 		return creationDate;
 	}
 
@@ -114,7 +102,7 @@ public class CommentModel implements Serializable {
 		return id;
 	}
 
-	public Calendar getLastModificationDate() {
+	public Instant getLastModificationDate() {
 		return lastModificationDate;
 	}
 
@@ -142,7 +130,7 @@ public class CommentModel implements Serializable {
 		this.comment = comment;
 	}
 
-	public void setCreationDate(Calendar creationDate) {
+	public void setCreationDate(Instant creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -150,7 +138,7 @@ public class CommentModel implements Serializable {
 		this.id = id;
 	}
 
-	public void setLastModificationDate(Calendar lastModificationDate) {
+	public void setLastModificationDate(Instant lastModificationDate) {
 		this.lastModificationDate = lastModificationDate;
 	}
 

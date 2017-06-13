@@ -1,7 +1,7 @@
 package de.codeboje.springbootbook.commentstore.service;
 
 import java.io.IOException;
-import java.util.Calendar;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,12 +39,12 @@ public class CommentServiceImpl implements CommentService {
         if (dbModel != null) {
             dbModel.setUsername(model.getUsername());
             dbModel.setComment(model.getComment());            
-            dbModel.setLastModificationDate(Calendar.getInstance());
+            dbModel.setLastModificationDate(Instant.now());
             repository.save(dbModel);
         }
         else {
-            model.setCreationDate(Calendar.getInstance());
-            model.setLastModificationDate(Calendar.getInstance());
+            model.setCreationDate(Instant.now());
+            model.setLastModificationDate(Instant.now());
             repository.save(model);
         }
         return model.getId();
@@ -52,7 +52,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentModel get(String id) {
-        return repository.findOne(id);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public void delete(String id) {
-		repository.delete(id);
+		repository.deleteById(id);
 	}
 
 }

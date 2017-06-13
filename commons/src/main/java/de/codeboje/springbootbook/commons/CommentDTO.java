@@ -1,6 +1,6 @@
 package de.codeboje.springbootbook.commons;
 
-import java.util.Calendar;
+import java.time.Instant;
 
 
 public class CommentDTO {
@@ -9,12 +9,12 @@ public class CommentDTO {
 	private String username;
 	private String emailAddress;
 	private String comment;
-	private Calendar created;
+	private Instant created;
 	
-	public Calendar getCreated() {
+	public Instant getCreated() {
 		return created;
 	}
-	public void setCreated(Calendar created) {
+	public void setCreated(Instant created) {
 		this.created = created;
 	}
 	public String getId() {

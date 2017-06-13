@@ -4,3 +4,6 @@ target
 .settings
 
 spam-detection/.springBeans
+
+*.zip
+
